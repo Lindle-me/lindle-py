@@ -28,7 +28,8 @@ pip3 install lindle
 
 ## Getting Started
 Get your Lindle API key from <a href="https://chrome.google.com/webstore/detail/igkkojjaikfmiibedalhgmfnjohlhmaj">Chrome Extension</a>.
-<img src="./api.png" alt="Chrome Extension" style="height: 200px !important" />
+<br/>
+<img src="./api.png" alt="Chrome Extension" style="height: 400px !important" />
 
 ```
 import lindle

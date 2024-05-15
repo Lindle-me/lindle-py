@@ -8,7 +8,7 @@ class Lindle:
 
     def get_user(self):
         headers = {"Authorization": f"Bearer {self.api_key}"}
-        res = requests.get("https://www.lindle.me/api/user", headers=headers).json()
+        res = requests.get("https://api.lindle.me/api/user", headers=headers).json()
         return {
             "id": res["_id"],
             "name": res["name"],
@@ -18,7 +18,7 @@ class Lindle:
 
     def get_links(self):
         headers = {"Authorization": f"Bearer {self.api_key}"}
-        res = requests.get("https://www.lindle.me/api/links", headers=headers).json()
+        res = requests.get("https://api.lindle.me/api/links", headers=headers).json()
         links = []
         for item in res:
             links.append({
@@ -32,7 +32,7 @@ class Lindle:
 
     def get_folders(self, with_links=False):
         headers = {"Authorization": f"Bearer {self.api_key}"}
-        res = requests.get("https://www.lindle.me/api/folders", headers=headers).json()
+        res = requests.get("https://api.lindle.me/api/folders", headers=headers).json()
         folders = []
         links = self.get_links() if with_links else []
         for item in res:
@@ -53,7 +53,7 @@ class Lindle:
 
     def get_synced_bookmarks(self):
         headers = {"Authorization": f"Bearer {self.api_key}"}
-        res = requests.get("https://www.lindle.me/api/links/bookmarks/sync", headers=headers).json()
+        res = requests.get("https://api.lindle.me/api/links/bookmarks/sync", headers=headers).json()
         folders = [{
             "id": item["id"],
             "name": item["name"],
@@ -74,7 +74,7 @@ class Lindle:
     def create_link(self, name, url, folder=None, favourite=None):
         headers = {"Authorization": f"Bearer {self.api_key}"}
         data = {"name": name, "url": url, "folder": folder, "favourite": favourite}
-        res = requests.post("https://www.lindle.me/api/links", json=data, headers=headers).json()
+        res = requests.post("https://api.lindle.me/api/links", json=data, headers=headers).json()
         item = res.get("link", {})
         link = {
             "id": item.get("_id", ""),
@@ -90,7 +90,7 @@ class Lindle:
     def create_folder(self, name, public_folder=None):
         headers = {"Authorization": f"Bearer {self.api_key}"}
         payload = {"name": name, "public": public_folder}
-        response = requests.post("https://www.lindle.me/api/folders", json=payload, headers=headers)
+        response = requests.post("https://api.lindle.me/api/folders", json=payload, headers=headers)
         data = response.json()
         return data
 
@@ -100,7 +100,7 @@ class Lindle:
         headers = {"Authorization": f"Bearer {self.api_key}"}
         payload = {"name": name, "url": url, "folder": folder, "favourite": favourite}
         response = requests.patch(
-            f"https://www.lindle.me/api/links/{link_id}", json=payload, headers=headers
+            f"https://api.lindle.me/api/links/{link_id}", json=payload, headers=headers
         )
         data = response.json()
         return data
@@ -109,7 +109,7 @@ class Lindle:
         headers = {"Authorization": f"Bearer {self.api_key}"}
         payload = {"name": name, "public": public_folder}
         response = requests.patch(
-            f"https://www.lindle.me/api/folders/{folder_id}", json=payload, headers=headers
+            f"https://api.lindle.me/api/folders/{folder_id}", json=payload, headers=headers
         )
         data = response.json()
         return data
@@ -118,14 +118,14 @@ class Lindle:
 
     def delete_link(self, link_id):
         headers = {"Authorization": f"Bearer {self.api_key}"}
-        response = requests.delete(f"https://www.lindle.me/api/links/{link_id}", headers=headers)
+        response = requests.delete(f"https://api.lindle.me/api/links/{link_id}", headers=headers)
         data = response.json()
         return data
 
     def delete_folder(self, folder_id):
         headers = {"Authorization": f"Bearer {self.api_key}"}
         response = requests.delete(
-            f"https://www.lindle.me/api/folders/{folder_id}", headers=headers
+            f"https://api.lindle.me/api/folders/{folder_id}", headers=headers
         )
         data = response.json()
         return data
